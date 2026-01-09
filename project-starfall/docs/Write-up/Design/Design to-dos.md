@@ -1,0 +1,5 @@
+- Agent archetype trees
+- Server connection (done, but needs checking over)
+- Station/system classes
+- Database
+- Complete world gen
