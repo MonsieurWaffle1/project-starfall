@@ -1,6 +1,0 @@
-docker service create --replicas <n> --name <name> --update-delay <ThTmTs> <service to deploy> - create a service with the given perameters
-docker service ls - lists all services currently running
-docker service ps <name> - see how the service is distributed across the nodes
-docker service rm <name> - deletes the service
-docker node update --availability drain <node> - moves tasks off the given node and marks it as unavalible
-docker node update --availability active <node> - allows the node to be given new tasks
