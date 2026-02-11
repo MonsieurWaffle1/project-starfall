@@ -7,18 +7,18 @@ Systems are created and filled out with attributes according to user input.
 '''
 
 class Graph:
-    def __init__(self, density, layers):
+    def __init__(self, density: int, layers: int) -> None:
         # Instantiates variables
-        self.id_count = 1
-        self.systems = []
-        self.density = density
-        self.layers = layers
+        self.id_count: int = 1
+        self.systems: list = []
+        self.density: int = density
+        self.layers: int = layers
 
         # Runs setup function
         self.setup()
 
 
-    def setup(self):
+    def setup(self) -> None:
         # Function to generate the world
 
         start_node = system(self.id_count,0)
@@ -29,7 +29,7 @@ class Graph:
         pass
 
 
-    def systemGen(self, source, layer):
+    def systemGen(self, source, layer) -> None:
         # Recursive function to create systems according to layers and density
 
         if layer > self.layers:
@@ -55,7 +55,7 @@ class Graph:
 
 if __name__ == "__main__":
     # Gets inputs from user
-    my_graph = Graph(2,3)
+    my_graph = Graph(density = 2, layers = 3)
 
     if my_graph.systems[1].id != my_graph.systems[2].id:
         print("yay!")
