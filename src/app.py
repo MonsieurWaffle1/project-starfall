@@ -1,4 +1,4 @@
-from worldgen.graph import Graph
+from src.graph import Graph
 
 
 
