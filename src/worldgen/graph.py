@@ -1,5 +1,6 @@
 from system import System
 from random import randint
+from resources import *
 
 '''
 A graph class that builds itself into the world map.
@@ -13,10 +14,34 @@ class Graph:
             "1":0,
             "2":0
         }
+
         self.id_count: int = 1
         self.systems: list = []
         self.density: int = density
         self.layers: int = layers
+
+        # Possible resources that can be generated
+        self.resources = (
+            Resource("Aluminium"),
+            Resource("Titanium"),
+            Resource("Iron"),
+            Resource("Copper"),
+            Resource("Gold"),
+            Resource("Silver"),
+            Resource("Platinum"),
+            Resource("Palladium"),
+            Resource("Cobalt"),
+            Resource("Lead")
+        )
+
+        # Alloys and their ingredients
+        self.alloys = (
+            Alloy("AlCu",("Aluminium","Copper"),2),
+            Alloy("AgPt",("Silver","Platinum"),2),
+            Alloy("FeAu",("Iron","Gold"),2),
+            Alloy("TiPb",("Titanium", "Lead"),3),
+            Alloy("PdCo",("Palladium","Cobalt"),3)
+        )
 
         # Runs setup function
         self.setup()
@@ -91,11 +116,26 @@ class Graph:
                 sys.assign(2)
 
 
+    def func(self):
+        pass
 
 
-if __name__ == "__main__":
-    # Gets inputs from user
-    my_graph = Graph(density = 2, layers = 4)
 
-    for system in my_graph.systems:
-        print(system.layer)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
