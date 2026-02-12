@@ -1,6 +1,6 @@
 import random
 
-class system:
+class System:
     def __init__(self, sysID:int, layer:int) -> None:
         # Define initial system stats (placeholder)
 
