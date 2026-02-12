@@ -1,5 +1,6 @@
 from system import System
 from random import randint
+from random import choice
 from resources import *
 
 '''
@@ -56,6 +57,7 @@ class Graph:
         self.systemGen(start_node,1)
 
         self.tierAssign()
+        self.resourceAssign(list(self.resources))
 
         pass
 
@@ -94,7 +96,7 @@ class Graph:
             self.transition_points[str(i)] = layer
 
         for sys in self.systems:
-            # Uses separate function if a transition point
+            # Uses separate function if a transition pointAdded resources to the Graph class
 
             if sys.layer in self.transition_points.values():
                 # Passes the correct tuple based on transition point
@@ -114,6 +116,26 @@ class Graph:
 
             else:
                 sys.assign(2)
+
+
+    def resourceAssign(self, resources):
+        all_assigned = False
+
+        for sys in self.systems:
+            if sys.tier == 1:
+                if all_assigned:
+                    sys.resources.append(choice(self.resources))
+
+                else:
+                    resource = choice(resources)
+                    sys.resources.append(resource)
+                    resources.remove(resource)
+
+                if not resources:
+                    all_assigned = True
+
+        if not all_assigned:
+            self.resourceAssign(resources)
 
 
     def func(self):

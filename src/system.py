@@ -9,9 +9,9 @@ class System:
         self.sec = False
         self.tier = 1
         self.layer = layer
+        self.resources = []
 
     def assignRandom(self, tiers:tuple):
-        print(tiers)
         self.tier = random.choice(tiers)
 
     def assign(self,tier:int):
