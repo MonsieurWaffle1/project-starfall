@@ -1,4 +1,4 @@
-from system import system
+from system import System
 from random import randint
 
 '''
@@ -25,7 +25,7 @@ class Graph:
     def setup(self) -> None:
         # Function to generate the world
 
-        start_node = system(self.id_count,0)
+        start_node = System(self.id_count, 0)
         self.systems.append(start_node)
 
         self.systemGen(start_node,1)
@@ -45,7 +45,7 @@ class Graph:
         for i in range(self.density):
             # A new system is created and added to the node list
             self.id_count += 1
-            node = system(self.id_count,layer)
+            node = System(self.id_count, layer)
 
             # Relevant adjacencies are are added
             distance = randint(2,12)
