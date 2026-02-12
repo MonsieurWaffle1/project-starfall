@@ -69,8 +69,10 @@ class Graph:
             self.transition_points[str(i)] = layer
 
         for sys in self.systems:
-            # Transition points
+            # Uses separate function if a transition point
+
             if sys.layer in self.transition_points.values():
+                # Passes the correct tuple based on transition point
                 if self.transition_points["1"] == sys.layer:
                     tiers = (2,3)
                 else:
@@ -78,6 +80,7 @@ class Graph:
 
                 sys.assignRandom(tiers)
 
+            # Assigns tier based on layer
             elif self.transition_points["1"] > sys.layer:
                 sys.assign(3)
 
