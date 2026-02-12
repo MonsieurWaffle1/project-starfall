@@ -9,6 +9,10 @@ Systems are created and filled out with attributes according to user input.
 class Graph:
     def __init__(self, density: int, layers: int) -> None:
         # Instantiates variables
+        self.transition_points = {
+            "1":0,
+            "2":0
+        }
         self.id_count: int = 1
         self.systems: list = []
         self.density: int = density
@@ -25,6 +29,8 @@ class Graph:
         self.systems.append(start_node)
 
         self.systemGen(start_node,1)
+
+        self.tierAssign()
 
         pass
 
@@ -53,9 +59,43 @@ class Graph:
             self.systemGen(node,layer+1)
 
 
+    def tierAssign(self):
+        # Determine transition points
+        interval = self.layers//3
+        layer = 0
+
+        for i in range(1,3):
+            layer += interval
+            self.transition_points[str(i)] = layer
+
+        for sys in self.systems:
+            # Uses separate function if a transition point
+
+            if sys.layer in self.transition_points.values():
+                # Passes the correct tuple based on transition point
+                if self.transition_points["1"] == sys.layer:
+                    tiers = (2,3)
+                else:
+                    tiers = (1,2)
+
+                sys.assignRandom(tiers)
+
+            # Assigns tier based on layer
+            elif self.transition_points["1"] > sys.layer:
+                sys.assign(3)
+
+            elif self.transition_points["2"] < sys.layer:
+                sys.assign(1)
+
+            else:
+                sys.assign(2)
+
+
+
+
 if __name__ == "__main__":
     # Gets inputs from user
-    my_graph = Graph(density = 2, layers = 3)
+    my_graph = Graph(density = 2, layers = 4)
 
-    if my_graph.systems[1].id != my_graph.systems[2].id:
-        print("yay!")
+    for system in my_graph.systems:
+        print(system.layer)
