@@ -119,22 +119,27 @@ class Graph:
 
 
     def resourceAssign(self, resources):
+        # Assigns basic resources to Tier 1 systems
         all_assigned = False
 
         for sys in self.systems:
             if sys.tier == 1:
                 if all_assigned:
+                    # Assigns any random resource
                     sys.resources.append(choice(self.resources))
 
                 else:
+                    # Assigns any resource that does not yet exist
                     resource = choice(resources)
                     sys.resources.append(resource)
                     resources.remove(resource)
 
                 if not resources:
+                    # Changed flag if all assigned
                     all_assigned = True
 
         if not all_assigned:
+            # Repeats if not all resources have been assigned
             self.resourceAssign(resources)
 
 
