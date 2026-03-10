@@ -10,6 +10,7 @@ class System:
         self.tier = 1
         self.layer = layer
         self.resources = []
+        self.buildings = []
 
     def assignRandom(self, tiers:tuple):
         self.tier = random.choice(tiers)
