@@ -1,3 +1,8 @@
+from names import system_names
+from names import station_names
+
+from random import choice
+
 class Building:
     def __init__(self, name, cost):
         self.name = name
@@ -23,12 +28,12 @@ class Refinery(Building):
 
 class AdvancedRefinery(Refinery):
     def __init__(self):
-        super().__init__("Advanced")
+        super().__init__("advanced")
 
 
 class BasicRefinery(Refinery):
     def __init__(self):
-        super().__init__("Basic")
+        super().__init__("basic")
 
 
 class ManufacturingPlant(Building):
