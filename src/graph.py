@@ -1,7 +1,10 @@
+from xxlimited_35 import Null
+
 from system import System
 from random import randint
 from random import choice
 from resources import *
+from buildings import *
 
 '''
 A graph class that builds itself into the world map.
@@ -58,6 +61,7 @@ class Graph:
 
         self.tierAssign()
         self.resourceAssign(list(self.resources))
+        self.buildingAssign()
 
         pass
 
@@ -143,8 +147,24 @@ class Graph:
             self.resourceAssign(resources)
 
 
-    def func(self):
-        pass
+    def buildingAssign(self):
+        advanced = False
+
+        for sys in self.systems:
+            if sys.tier == 3:
+                sys.buildings.append(ManufacturingPlant())
+
+            elif sys.tier == 2:
+                num = randint(1,5)
+                if 0 < num < 2 or not advanced:
+                    sys.buildings.append(AdvancedRefinery())
+                    advanced = True
+
+                else:
+                    sys.buildings.append(BasicRefinery())
+
+            sys.station = Station()
+
 
 
 
