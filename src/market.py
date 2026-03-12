@@ -22,17 +22,17 @@ class Market:
             product.price = self.priceCalc(product.name, product.quantity)
 
     def adjust(self, action, item, Q):
-        flag = False
+        exists = False
         action = action.lower()
         item = item.lower()
 
         for i in self.products:
             if i.name == item:
-                flag = True
+                exists = True
                 item = i
                 break
 
-        if not flag:
+        if not exists:
             return False
 
         if action == "buy":
