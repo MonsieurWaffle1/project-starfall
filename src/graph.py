@@ -26,25 +26,25 @@ class Graph:
 
         # Possible resources that can be generated
         self.resources = (
-            Resource("Aluminium"),
-            Resource("Titanium"),
-            Resource("Iron"),
-            Resource("Copper"),
-            Resource("Gold"),
-            Resource("Silver"),
-            Resource("Platinum"),
-            Resource("Palladium"),
-            Resource("Cobalt"),
-            Resource("Lead")
+            Resource("aluminium"),
+            Resource("titanium"),
+            Resource("iron"),
+            Resource("copper"),
+            Resource("gold"),
+            Resource("silver"),
+            Resource("platinum"),
+            Resource("palladium"),
+            Resource("cobalt"),
+            Resource("lead")
         )
 
         # Alloys and their ingredients
         self.alloys = (
-            Alloy("AlCu",("Aluminium","Copper"),2),
-            Alloy("AgPt",("Silver","Platinum"),2),
-            Alloy("FeAu",("Iron","Gold"),2),
-            Alloy("TiPb",("Titanium", "Lead"),3),
-            Alloy("PdCo",("Palladium","Cobalt"),3)
+            Alloy("AlCu",("aluminium","copper"),2),
+            Alloy("AgPt",("silver","platinum"),2),
+            Alloy("FeAu",("iron","gold"),2),
+            Alloy("TiPb",("titanium", "lead"),3),
+            Alloy("PdCo",("palladium","cobalt"),3)
         )
 
         # Runs setup function
