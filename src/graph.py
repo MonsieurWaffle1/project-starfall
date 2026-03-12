@@ -167,18 +167,18 @@ class Graph:
             sys.station = Station()
 
     def marketAssign(self):
+        # Assigns a market to each system based on tier
         for sys in self.systems:
             if sys.tier == 1:
                 sys.market = MiningMarket(sys.resources)
 
                 for i in sys.resources:
+                    # Fill market with initial products
                     product = MarketItem(i.name,randint(1,10),0)
                     sys.market.products.append(product)
 
-
             elif sys.tier == 2:
                 sys.market = ManufacturingMarket(2)
-
 
             elif sys.tier == 3:
                 sys.market = ManufacturingMarket(3)
