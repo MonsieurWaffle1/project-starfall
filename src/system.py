@@ -1,4 +1,5 @@
 import random
+from market import Market
 
 class System:
     def __init__(self, sysID:int, layer:int) -> None:
@@ -11,6 +12,7 @@ class System:
         self.layer = layer
         self.resources = []
         self.buildings = []
+        self.market = Market()
 
     def assignRandom(self, tiers:tuple):
         self.tier = random.choice(tiers)

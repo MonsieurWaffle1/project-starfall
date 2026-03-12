@@ -1,10 +1,11 @@
-from xxlimited_35 import Null
 
 from system import System
 from random import randint
 from random import choice
 from resources import *
 from buildings import *
+from market import *
+from marketItem import *
 
 '''
 A graph class that builds itself into the world map.
@@ -62,6 +63,7 @@ class Graph:
         self.tierAssign()
         self.resourceAssign(list(self.resources))
         self.buildingAssign()
+        self.marketAssign()
 
         pass
 
@@ -164,6 +166,25 @@ class Graph:
                     sys.buildings.append(BasicRefinery())
 
             sys.station = Station()
+
+    def marketAssign(self):
+        for sys in self.systems:
+            if sys.tier == 1:
+                sys.market = MiningMarket(sys.resources)
+
+                for i in sys.resources:
+                    product = MarketItem(i.name,randint(1,10),0)
+                    sys.market.products.append(product)
+
+
+            elif sys.tier == 2:
+                sys.market = ManufacturingMarket(2)
+
+
+            elif sys.tier == 3:
+                sys.market = ManufacturingMarket(3)
+
+            sys.market.update()
 
 
 

@@ -3,13 +3,54 @@ Class to represent the market state of a system, and updates commodity prices ba
 Uses different price calculations dependent on what the system is producing.
 """
 
+from marketItem import *
+
 class Market:
     def __init__(self):
-        self.products = {}
+        self.products = []
 
     def priceCalc(self, item, Q):
         # If no subclass is used, return to fallback equation
-        return (100 - Q) / 1.0
+        return round(90 / (1 + (Q / 45)))
+
+    def update(self):
+        for product in self.products:
+            product.price = self.priceCalc(product.name, product.quantity)
+
+    def adjust(self, action, item, Q):
+        flag = False
+        action = action.lower()
+        item = item.lower()
+
+        for i in self.products:
+            if i.name == item:
+                flag = True
+                item = i
+                break
+
+        if not flag:
+            return False
+
+        if action == "buy":
+            return self.buy(item, Q)
+
+        elif action == "sell":
+            return self.sell(item, Q)
+
+        else:
+            return False
+
+    def buy(self, item, Q):
+        if item.quantity < Q:
+            return False
+
+        item.quantity -= Q
+        return True
+
+
+    def sell(self, item, Q):
+        item.quantity += Q
+        return True
 
 
 class MiningMarket(Market):
@@ -19,11 +60,11 @@ class MiningMarket(Market):
 
     def priceCalc(self, item, Q):
         # Use different equations depending on how abundant the resource is in the system
-        if item == self.main:
-            return (200 - Q) / 0.8
+        if item in self.main:
+            return round(100 / (1 + (Q / 80)))
 
         else:
-            return (80 - Q) / 1.2
+            return round(80 / (1 + (Q / 30)))
 
 
 class ManufacturingMarket(Market):
@@ -34,7 +75,7 @@ class ManufacturingMarket(Market):
     def priceCalc(self, item, Q):
         # Use different equation depending on what level of resource is being manufactured in the system
         if self.tier == 3:
-            return (120 - Q) / 1.3
+            return round(110 / (1 + (Q / 35)))
 
         else:
-            return (120 - Q) / 1.5
+            return round(120 / (1 + (Q / 40)))
