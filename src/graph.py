@@ -47,6 +47,12 @@ class Graph:
             Alloy("PdCo",("palladium","cobalt"),3)
         )
 
+        self.components = (
+            Component(1),
+            Component(2),
+            Component(3)
+        )
+
         # Runs setup function
         self.setup()
 
