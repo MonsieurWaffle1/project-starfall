@@ -18,14 +18,19 @@ class Market:
         return round(90 / (1 + (Q / 45)))
 
     def update(self):
+        # Adjust price of each product based on the relevant equation
         for product in self.products:
             product.price = self.priceCalc(product.name, product.quantity)
 
     def adjust(self, action, item, Q):
+        # Performs buy and sell ops
+
+        # Clean data and sets a flag to check if the resource exists
         exists = False
         action = action.lower()
         item = item.lower()
 
+        # Finds the item
         for i in self.products:
             if i.name == item:
                 exists = True
@@ -35,6 +40,7 @@ class Market:
         if not exists:
             return False
 
+        # Performs the relevant buy/sell action
         if action == "buy":
             return self.buy(item, Q)
 
@@ -45,6 +51,7 @@ class Market:
             return False
 
     def buy(self, item, Q):
+        # Decreases stock if a valid amount is ordered
         if item.quantity < Q:
             return False
 
