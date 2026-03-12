@@ -3,7 +3,11 @@ Class to represent the market state of a system, and updates commodity prices ba
 Uses different price calculations dependent on what the system is producing.
 """
 
-from marketItem import *
+class MarketItem:
+    def __init__(self, name, quantity, price):
+        self.name = name
+        self.quantity = quantity
+        self.price = price
 
 class Market:
     def __init__(self):

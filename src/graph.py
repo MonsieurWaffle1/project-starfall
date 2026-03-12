@@ -5,7 +5,6 @@ from random import choice
 from resources import *
 from buildings import *
 from market import *
-from marketItem import *
 
 '''
 A graph class that builds itself into the world map.
