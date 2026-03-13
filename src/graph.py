@@ -3,7 +3,7 @@ from system import System
 from buildings import *
 from market import *
 
-from setup import resources
+import resources
 
 from random import randint
 from random import sample

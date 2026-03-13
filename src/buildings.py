@@ -1,5 +1,5 @@
-from src.setup.names import system_names
-from src.setup.names import station_names
+from names import system_names
+from names import station_names
 
 from random import choice
 

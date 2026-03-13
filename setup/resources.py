@@ -2,7 +2,7 @@
 A list of possible resources that can be generated
 """
 
-from ..commodity import *
+from commodity import *
 
 resources = (
     Resource("aluminium"),
