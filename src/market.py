@@ -70,8 +70,11 @@ class Market:
         for i in resources.components + resources.alloys + resources.resources:
             if i.name.lower() == item.lower():
                 item = i
-                break
 
+                component = MarketItem(item, item.name, Q, 0)
+                self.products.append(component)
+
+                break
 
         return True
 
