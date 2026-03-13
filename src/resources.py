@@ -14,4 +14,4 @@ class Alloy(Commodity):
 
 class Component(Commodity):
     def __init__(self, tier):
-        super().__init__(f"T{tier} Mechanical Components", tier)
+        super().__init__(f"T{tier} Mechanical Components", 4)
