@@ -3,7 +3,8 @@ Class to represent the market state of a system, and updates commodity prices ba
 Uses different price calculations dependent on what the system is producing.
 """
 
-from resources import *
+import resources
+
 
 class MarketItem:
     def __init__(self, item, name, quantity, price):
@@ -41,7 +42,7 @@ class Market:
                 break
 
         if not exists:
-            return False
+            return self.add(item, Q)
 
         # Performs the relevant buy/sell action
         if action == "buy":
@@ -61,9 +62,17 @@ class Market:
         item.quantity -= Q
         return True
 
-
     def sell(self, item, Q):
         item.quantity += Q
+        return True
+
+    def add(self, item, Q):
+        for i in resources.components + resources.alloys + resources.resources:
+            if i.name.lower() == item.lower():
+                item = i
+                break
+
+
         return True
 
 
