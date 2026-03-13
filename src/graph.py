@@ -1,3 +1,4 @@
+import sys
 
 from system import System
 from buildings import *
@@ -157,18 +158,23 @@ class Graph:
 
     def marketAssign(self):
         # Assigns a market to each system based on tier
+
+        # Resources will be assigned from pools to each market type
+
         for sys in self.systems:
             if sys.tier == 1:
                 sys.market = MiningMarket(sys.resources)
 
                 for i in sys.resources:
-                    # Fill market with initial products
+                    # Basic resources are added
                     product = MarketItem(i, i.name, randint(1,10),0)
                     sys.market.products.append(product)
+
 
             elif sys.tier == 2:
                 sys.market = ManufacturingMarket(2)
 
+                # Random alloys, resources and components are filled into the market
                 alloy_nums = sample(range(0, len(self.alloys)),2)
                 resource_nums = sample(range(0, len(self.resources)), 3)
 
@@ -177,23 +183,32 @@ class Graph:
                     alloy = MarketItem(self.alloys[i], self.alloys[i].name, q, 0)
                     sys.market.products.append(alloy)
 
-
                 for j in resource_nums:
                     q = randint(1,10)
                     resource = MarketItem(self.resources[j], self.resources[j].name, q, 0)
                     sys.market.products.append(resource)
 
+                q = randint(1,5)
+                tier = self.components[randint(0,len(self.components) - 1)]
+                component = MarketItem(tier, tier.name, q, 0)
+                sys.market.products.append(component)
+
 
             elif sys.tier == 3:
                 sys.market = ManufacturingMarket(3)
 
-                for i in range(1,4):
-                    item = Component(i)
-                    q = randint(1, 10)
+                for i in self.components:
+                    q = randint(2, 10)
 
-                    item = MarketItem(item, item.name, q, 0)
+                    item = MarketItem(i, i.name, q, 0)
                     sys.market.products.append(item)
 
+                alloy_nums = sample(range(0, len(self.alloys)), 2)
+
+                for i in alloy_nums:
+                    q = randint(1, 5)
+                    alloy = MarketItem(self.alloys[i], self.alloys[i].name, q, 0)
+                    sys.market.products.append(alloy)
 
             sys.market.update()
 
