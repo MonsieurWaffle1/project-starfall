@@ -46,25 +46,18 @@ class Market:
 
         # Performs the relevant buy/sell action
         if action == "buy":
-            return self.buy(item, Q)
+            if item.quantity < Q:
+                return False
+
+            item.quantity -= Q
+            return True
 
         elif action == "sell":
-            return self.sell(item, Q)
+            item.quantity += Q
+            return True
 
         else:
             return False
-
-    def buy(self, item, Q):
-        # Decreases stock if a valid amount is ordered
-        if item.quantity < Q:
-            return False
-
-        item.quantity -= Q
-        return True
-
-    def sell(self, item, Q):
-        item.quantity += Q
-        return True
 
     def add(self, item, Q):
         for i in resources.components + resources.alloys + resources.resources:
