@@ -3,8 +3,11 @@ Class to represent the market state of a system, and updates commodity prices ba
 Uses different price calculations dependent on what the system is producing.
 """
 
+from resources import *
+
 class MarketItem:
-    def __init__(self, name, quantity, price):
+    def __init__(self, item, name, quantity, price):
+        self.object = item
         self.name = name
         self.quantity = quantity
         self.price = price
@@ -20,7 +23,7 @@ class Market:
     def update(self):
         # Adjust price of each product based on the relevant equation
         for product in self.products:
-            product.price = self.priceCalc(product.name, product.quantity)
+            product.price = self.priceCalc(product, product.quantity)
 
     def adjust(self, action, item, Q):
         # Performs buy and sell ops
@@ -32,7 +35,7 @@ class Market:
 
         # Finds the item
         for i in self.products:
-            if i.name == item:
+            if i.name.lower() == item:
                 exists = True
                 item = i
                 break
@@ -71,11 +74,24 @@ class MiningMarket(Market):
 
     def priceCalc(self, item, Q):
         # Use different equations depending on how abundant the resource is in the system
-        if item in self.main:
-            return round(100 / (1 + (Q / 80)))
+        modifier = 1
 
-        else:
-            return round(80 / (1 + (Q / 30)))
+        for resource in self.main:
+            if resource.name.lower() == item.name.lower():
+                modifier = 0.8
+                break
+
+        if item.object.tier == 2:
+            modifier = 1.7
+
+        elif item.object.tier == 3:
+            modifier = 1.9
+
+        elif item.object.tier == 4:
+            modifier = 2.5
+
+
+        return round((100 / (1 + (Q / 30))) * modifier)
 
 
 class ManufacturingMarket(Market):
@@ -84,9 +100,37 @@ class ManufacturingMarket(Market):
         self.tier = tier
 
     def priceCalc(self, item, Q):
-        # Use different equation depending on what level of resource is being manufactured in the system
-        if self.tier == 3:
-            return round(110 / (1 + (Q / 35)))
+        modifier = 1
 
+        if self.tier == 2:
+            if item.object.tier == 1:
+                modifier = 1.2
+
+            elif item.object.tier == 2:
+                modifier = 1.4
+
+            elif item.object.tier == 3:
+                modifier = 1.8
+
+            elif item.object.tier == 4:
+                modifier = 2.2
+
+            return round((120 / (1 + (Q / 45))) * modifier)
+
+
+        # Use different equation depending on what level of resource is being manufactured in the system
         else:
-            return round(120 / (1 + (Q / 40)))
+            if item.object.tier == 1:
+                modifier = 1
+
+            elif item.object.tier == 2:
+                modifier = 1.2
+
+            elif item.object.tier == 3:
+                modifier = 1.6
+
+            elif item.object.tier == 4:
+                modifier = 1.8
+
+
+            return round((110 / (1 + (Q / 55))) * modifier)
