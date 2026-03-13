@@ -1,10 +1,13 @@
 
 from system import System
-from random import randint
-from random import choice
 from resources import *
 from buildings import *
 from market import *
+
+from random import randint
+from random import sample
+from random import choice
+
 
 '''
 A graph class that builds itself into the world map.
@@ -180,14 +183,37 @@ class Graph:
 
                 for i in sys.resources:
                     # Fill market with initial products
-                    product = MarketItem(i.name,randint(1,10),0)
+                    product = MarketItem(i, i.name, randint(1,10),0)
                     sys.market.products.append(product)
 
             elif sys.tier == 2:
                 sys.market = ManufacturingMarket(2)
 
+                alloy_nums = sample(range(0, len(self.alloys)),2)
+                resource_nums = sample(range(0, len(self.resources)), 3)
+
+                for i in alloy_nums:
+                    q = randint(1,10)
+                    alloy = MarketItem(self.alloys[i], self.alloys[i].name, q, 0)
+                    sys.market.products.append(alloy)
+
+
+                for j in resource_nums:
+                    q = randint(1,10)
+                    resource = MarketItem(self.resources[j], self.resources[j].name, q, 0)
+                    sys.market.products.append(resource)
+
+
             elif sys.tier == 3:
                 sys.market = ManufacturingMarket(3)
+
+                for i in range(1,4):
+                    item = Component(i)
+                    q = randint(1, 10)
+
+                    item = MarketItem(item, item.name, q, 0)
+                    sys.market.products.append(item)
+
 
             sys.market.update()
 
