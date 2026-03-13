@@ -1,8 +1,9 @@
 
 from system import System
-from resources import *
 from buildings import *
 from market import *
+
+from setup import resources
 
 from random import randint
 from random import sample
@@ -28,33 +29,12 @@ class Graph:
         self.layers: int = layers
 
         # Possible resources that can be generated
-        self.resources = (
-            Resource("aluminium"),
-            Resource("titanium"),
-            Resource("iron"),
-            Resource("copper"),
-            Resource("gold"),
-            Resource("silver"),
-            Resource("platinum"),
-            Resource("palladium"),
-            Resource("cobalt"),
-            Resource("lead")
-        )
+        self.resources = resources.resources
 
         # Alloys and their ingredients
-        self.alloys = (
-            Alloy("AlCu",("aluminium","copper"),2),
-            Alloy("AgPt",("silver","platinum"),2),
-            Alloy("FeAu",("iron","gold"),2),
-            Alloy("TiPb",("titanium", "lead"),3),
-            Alloy("PdCo",("palladium","cobalt"),3)
-        )
+        self.alloys = resources.alloys
 
-        self.components = (
-            Component(1),
-            Component(2),
-            Component(3)
-        )
+        self.components = resources.components
 
         # Runs setup function
         self.setup()
