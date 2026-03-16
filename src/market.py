@@ -42,7 +42,11 @@ class Market:
                 break
 
         if not exists:
-            return self.add(item, Q)
+            if action == "sell":
+                return self.add(item, Q)
+
+            else:
+                return False
 
         # Performs the relevant buy/sell action
         if action == "buy":
