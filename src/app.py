@@ -1,10 +1,7 @@
 from graph import Graph
 from system import System
 
-if __name__ == "__main__":
-    # Gets inputs from user
-    my_graph = Graph(density = 3, layers = 3)
-
+def marketTest():
     my_system = True
 
     tier = int(input("What tier? "))
@@ -31,5 +28,12 @@ if __name__ == "__main__":
 
         for product in my_system.market.products:
             print(f"{product.name}, {product.quantity}, {product.price}")
+
+if __name__ == "__main__":
+    # Gets inputs from user
+    my_graph = Graph(density = 3, layers = 3)
+
+    marketTest()
+
 
 
