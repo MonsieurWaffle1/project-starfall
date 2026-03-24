@@ -3,9 +3,6 @@ Class to represent the market state of a system, and updates commodity prices ba
 Uses different price calculations dependent on what the system is producing.
 """
 
-import resources
-
-
 class MarketItem:
     def __init__(self, item, name, quantity, price):
         self.object = item
@@ -14,8 +11,9 @@ class MarketItem:
         self.price = price
 
 class Market:
-    def __init__(self):
+    def __init__(self, commodities):
         self.products = []
+        self.commodities = commodities
 
     def priceCalc(self, item, Q):
         # If no subclass is used, return to fallback equation
@@ -64,7 +62,7 @@ class Market:
             return False
 
     def add(self, item, Q):
-        for i in resources.components + resources.alloys + resources.resources:
+        for i in self.commodities:
             if i.name.lower() == item.lower():
                 item = i
 
@@ -77,8 +75,8 @@ class Market:
 
 
 class MiningMarket(Market):
-    def __init__(self, main):
-        super().__init__()
+    def __init__(self, main, commodities):
+        super().__init__(commodities)
         self.main = main
 
     def priceCalc(self, item, Q):
@@ -104,8 +102,8 @@ class MiningMarket(Market):
 
 
 class ManufacturingMarket(Market):
-    def __init__(self, tier):
-        super().__init__()
+    def __init__(self, tier, commodities):
+        super().__init__(commodities)
         self.tier = tier
 
     def priceCalc(self, item, Q):

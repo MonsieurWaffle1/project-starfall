@@ -3,12 +3,12 @@ import sys
 from system import System
 from buildings import *
 from market import *
-
-import resources
+from commodity import *
 
 from random import randint
 from random import sample
 from random import choice
+import json
 
 
 '''
@@ -29,13 +29,27 @@ class Graph:
         self.density: int = density
         self.layers: int = layers
 
-        # Possible resources that can be generated
-        self.resources = resources.resources
+        self.resources: list = []
+        self.alloys: list = []
+        self.components: list = []
 
-        # Alloys and their ingredients
-        self.alloys = resources.alloys
+        # Resource import from JSON
+        with open('../resources.json', 'r') as f:
+            data = json.load(f)
 
-        self.components = resources.components
+        for i in data["resources"]:
+            resource = Resource(i["name"])
+            self.resources.append(resource)
+
+        for j in data["alloys"]:
+            alloy = Alloy(j["name"], j["cost"], j["tier"])
+            self.alloys.append(alloy)
+
+        for k in data["components"]:
+            component = Component(k["tier"])
+            self.components.append(component)
+
+        self.commodities = [self.resources, self.alloys, self.components]
 
         # Runs setup function
         self.setup()
@@ -168,7 +182,7 @@ class Graph:
 
         for sys in self.systems:
             if sys.tier == 1:
-                sys.market = MiningMarket(sys.resources)
+                sys.market = MiningMarket(sys.resources, self.commodities)
 
                 for i in sys.resources:
                     # Basic resources are added
@@ -177,7 +191,7 @@ class Graph:
 
 
             elif sys.tier == 2:
-                sys.market = ManufacturingMarket(2)
+                sys.market = ManufacturingMarket(2, self.commodities)
 
                 # Random alloys, resources and components are filled into the market
                 alloy_nums = sample(range(0, len(self.alloys)),2)
@@ -200,7 +214,7 @@ class Graph:
 
 
             elif sys.tier == 3:
-                sys.market = ManufacturingMarket(3)
+                sys.market = ManufacturingMarket(3, self.commodities)
 
                 for i in self.components:
                     q = randint(2, 10)

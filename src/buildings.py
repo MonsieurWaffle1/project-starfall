@@ -1,8 +1,6 @@
-from names import system_names
-from names import station_names
-
 from random import choice
 from random import randint
+import json
 
 class Building:
     def __init__(self, name, cost, buildable):
@@ -21,9 +19,14 @@ class Station(Building):
     def __init__(self):
         # Appears in every system, holds a system's market
         cost = {}
+        system_names = []
+        station_names = []
+
+        with open('../names.json', 'r') as f:
+            data = json.load(f)
 
         # Generates a name for the station based on a list of available options
-        name = f"{choice(system_names)} {choice(station_names)}"
+        name = f"{choice(data["system_names"])} {choice(data["station_names"])}"
         super().__init__(name, cost, False)
 
 

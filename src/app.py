@@ -46,7 +46,7 @@ if __name__ == "__main__":
     # Gets inputs from user
     my_graph = Graph(density = 3, layers = 3)
 
-    buildingTest(my_graph)
+    marketTest(my_graph)
 
 
 

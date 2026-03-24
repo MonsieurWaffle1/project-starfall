@@ -12,7 +12,6 @@ class System:
         self.layer = layer
         self.resources = []
         self.buildings = []
-        self.market = Market()
 
     def assignRandom(self, tiers:tuple):
         self.tier = random.choice(tiers)
