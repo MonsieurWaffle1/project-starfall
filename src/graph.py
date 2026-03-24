@@ -49,7 +49,7 @@ class Graph:
             component = Component(k["tier"])
             self.components.append(component)
 
-        self.commodities = [self.resources, self.alloys, self.components]
+        self.commodities = self.resources + self.alloys + self.components
 
         # Runs setup function
         self.setup()
