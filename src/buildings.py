@@ -2,11 +2,20 @@ from names import system_names
 from names import station_names
 
 from random import choice
+from random import randint
 
 class Building:
-    def __init__(self, name, cost):
+    def __init__(self, name, cost, buildable):
         self.name = name
-        self.cost = cost
+
+        # If a building can be constructed by the user, add the appropriate cost
+        if buildable:
+            self.cost = cost
+
+        else:
+            self.cost = {}
+
+
 
 class Station(Building):
     def __init__(self):
@@ -15,7 +24,7 @@ class Station(Building):
 
         # Generates a name for the station based on a list of available options
         name = f"{choice(system_names)} {choice(station_names)}"
-        super().__init__(name, cost)
+        super().__init__(name, cost, False)
 
 
 class Refinery(Building):
@@ -34,7 +43,7 @@ class Refinery(Building):
                 "t2_components":3
             }
 
-        super().__init__(name=(name+" Refinery"), cost = cost)
+        super().__init__((name+" Refinery"),cost,True)
 
 
 class AdvancedRefinery(Refinery):
@@ -53,4 +62,12 @@ class ManufacturingPlant(Building):
         cost = {
             "t3_components":5
         }
-        super().__init__("Manufacturing Plant", cost)
+        super().__init__("Manufacturing Plant", cost, True)
+
+class ResourceGen(Building):
+    def __init__(self, resource):
+        super().__init__(f"{resource.name} Generator", [], False)
+        self.resource = resource
+
+    def harvest(self):
+        return self.resource, randint(3,5)

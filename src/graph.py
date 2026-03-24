@@ -121,13 +121,17 @@ class Graph:
             if sys.tier == 1:
                 if all_assigned:
                     # Assigns any random resource
-                    sys.resources.append(choice(self.resources))
+                    resource = choice(self.resources)
+                    sys.resources.append(resource)
 
                 else:
                     # Assigns any resource that does not yet exist
                     resource = choice(resources)
                     sys.resources.append(resource)
                     resources.remove(resource)
+
+                # Creates a location where that resource can be gathered
+                sys.buildings.append(ResourceGen(resource))
 
                 if not resources:
                     # Changed flag if all assigned
@@ -155,6 +159,7 @@ class Graph:
                     sys.buildings.append(BasicRefinery())
 
             sys.station = Station()
+
 
     def marketAssign(self):
         # Assigns a market to each system based on tier
