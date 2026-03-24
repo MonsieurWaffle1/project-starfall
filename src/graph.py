@@ -34,7 +34,7 @@ class Graph:
         self.components: list = []
 
         # Resource import from JSON
-        with open('../resources.json', 'r') as f:
+        with open('config/resources.json', 'r') as f:
             data = json.load(f)
 
         for i in data["resources"]:
@@ -87,6 +87,7 @@ class Graph:
             distance = randint(2,12)
             node.adjacency.append({"target" : source.id,
                                    "distance" : distance})
+
             source.adjacency.append({"target" : node.id,
                                      "distance" : distance})
 
@@ -172,7 +173,7 @@ class Graph:
                 else:
                     sys.buildings.append(BasicRefinery())
 
-            sys.station = Station()
+            sys.buildings.append(Station())
 
 
     def marketAssign(self):

@@ -22,7 +22,7 @@ class Station(Building):
         system_names = []
         station_names = []
 
-        with open('../names.json', 'r') as f:
+        with open('config/names.json', 'r') as f:
             data = json.load(f)
 
         # Generates a name for the station based on a list of available options

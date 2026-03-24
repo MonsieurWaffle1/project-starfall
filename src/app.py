@@ -1,3 +1,4 @@
+from buildings import Building, Station
 from graph import Graph
 from system import System
 
@@ -10,6 +11,10 @@ def marketTest(graph):
         if i.tier == tier:
             my_system = i
             break
+
+    for building in my_system.buildings:
+
+        print(building.name)
 
     my_system.market.update()
 
