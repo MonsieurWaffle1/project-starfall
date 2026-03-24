@@ -1,12 +1,12 @@
 from graph import Graph
 from system import System
 
-def marketTest():
+def marketTest(graph):
     my_system = True
 
     tier = int(input("What tier? "))
 
-    for i in my_graph.systems:
+    for i in graph.systems:
         if i.tier == tier:
             my_system = i
             break
@@ -33,7 +33,7 @@ if __name__ == "__main__":
     # Gets inputs from user
     my_graph = Graph(density = 3, layers = 3)
 
-    marketTest()
+    marketTest(my_graph)
 
 
 
