@@ -2,6 +2,8 @@ from random import choice
 from random import randint
 import json
 
+from commodity import *
+
 class Building:
     def __init__(self, name, cost, buildable):
         self.name = name
@@ -49,6 +51,12 @@ class Refinery(Building):
             }
 
         super().__init__((name+" Refinery"),cost,True)
+
+    def refine(self, item):
+        if isinstance(item, Resource) and item.ore == True:
+            item.ore = False
+
+        return item
 
 
 class AdvancedRefinery(Refinery):

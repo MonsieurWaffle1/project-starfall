@@ -1,5 +1,6 @@
 from graph import Graph
 from commodity import Resource
+from buildings import *
 
 def marketTest(graph):
     my_system = True
@@ -12,7 +13,6 @@ def marketTest(graph):
             break
 
     for building in my_system.buildings:
-
         print(building.name)
 
     my_system.market.update()
@@ -52,13 +52,23 @@ def buildingTest(graph):
             break
 
     for building in my_system.buildings:
-        print(building.harvest())
+        print(building.name)
+
+        if isinstance(building, ResourceGen):
+            print(building.harvest())
+
+        elif isinstance(building, Refinery):
+            resource = choice(graph.resources)
+            print(resource.ore)
+
+            refined = building.refine(resource)
+            print(refined.ore)
 
 if __name__ == "__main__":
     # Gets inputs from user
     my_graph = Graph(density = 3, layers = 3)
 
-    marketTest(my_graph)
+    buildingTest(my_graph)
 
 
 
