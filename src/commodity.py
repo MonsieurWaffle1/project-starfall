@@ -6,6 +6,7 @@ class Commodity:
 class Resource(Commodity):
     def __init__(self, name):
         super().__init__(name, 1)
+        self.ore = True
 
 class Alloy(Commodity):
     def __init__(self, name, cost, tier):

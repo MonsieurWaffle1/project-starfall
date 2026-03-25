@@ -3,6 +3,8 @@ Class to represent the market state of a system, and updates commodity prices ba
 Uses different price calculations dependent on what the system is producing.
 """
 
+from commodity import Resource
+
 class MarketItem:
     def __init__(self, item, name, quantity, price):
         self.object = item
@@ -30,11 +32,10 @@ class Market:
         # Clean data and sets a flag to check if the resource exists
         exists = False
         action = action.lower()
-        item = item.lower()
 
         # Finds the item
         for i in self.products:
-            if i.name.lower() == item:
+            if i.name.lower() == item.name.lower():
                 exists = True
                 item = i
                 break
@@ -62,14 +63,13 @@ class Market:
             return False
 
     def add(self, item, Q):
-        for i in self.commodities:
-            if i.name.lower() == item.lower():
-                item = i
 
-                component = MarketItem(item, item.name, Q, 0)
-                self.products.append(component)
+        if isinstance(item, Resource):
+            if item.ore:
+                return False
 
-                break
+        component = MarketItem(item, item.name, Q, 0)
+        self.products.append(component)
 
         return True
 

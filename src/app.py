@@ -1,6 +1,5 @@
-from buildings import Building, Station
 from graph import Graph
-from system import System
+from commodity import Resource
 
 def marketTest(graph):
     my_system = True
@@ -26,8 +25,16 @@ def marketTest(graph):
         prod = input("What product? ")
         quant = int(input("What quantity? "))
 
-        my_system.market.adjust(action, prod, quant)
-        my_system.market.update()
+        for item in graph.commodities:
+            if item.name == prod:
+                prod = item
+                if isinstance(prod, Resource):
+                    prod.ore = False
+                break
+
+        if not isinstance(prod, str):
+            my_system.market.adjust(action, prod, quant)
+            my_system.market.update()
 
         print("")
 
