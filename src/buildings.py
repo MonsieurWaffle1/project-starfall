@@ -33,6 +33,8 @@ class Station(Building):
 class Refinery(Building):
     def __init__(self, level):
         # Refines ores into usable bars
+
+
         if level == "advanced":
             # Advanced level is able to create alloys
             name = "Advanced"
@@ -66,6 +68,7 @@ class ManufacturingPlant(Building):
             "t3_components":5
         }
         super().__init__("Manufacturing Plant", cost, True)
+
 
 class ResourceGen(Building):
     def __init__(self, resource):
