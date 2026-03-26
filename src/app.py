@@ -1,5 +1,5 @@
 from graph import Graph
-from buildings import *
+from building import *
 
 def marketTest(graph):
     my_system = True

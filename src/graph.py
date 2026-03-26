@@ -1,7 +1,7 @@
 import sys
 
 from system import System
-from buildings import *
+from building import *
 from market import *
 from commodity import *
 
