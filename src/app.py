@@ -1,5 +1,4 @@
 from graph import Graph
-from commodity import Resource
 from buildings import *
 
 def marketTest(graph):
@@ -61,8 +60,26 @@ def buildingTest(graph):
             resource = choice(graph.resources)
             print(resource.ore)
 
-            refined = building.refine(resource)
+            refined = building.refine(resource)[0]
             print(refined.ore)
+
+            if isinstance(building, AdvancedRefinery):
+                alloy = choice(graph.alloys)
+                resources = alloy.cost
+                resources.append(choice(graph.resources))
+
+                result = building.produceAlloy(alloy, resources)
+                print(result)
+
+        elif isinstance(building, ManufacturingPlant):
+            resources = []
+            for i in range(0,4):
+                resources.append(choice(graph.alloys))
+
+            out = building.produceComponents(resources, 2)
+            print(out)
+
+
 
 if __name__ == "__main__":
     # Gets inputs from user

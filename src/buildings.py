@@ -1,3 +1,4 @@
+from http.client import responses
 from random import choice
 from random import randint
 import json
@@ -63,6 +64,25 @@ class AdvancedRefinery(Refinery):
     def __init__(self):
         super().__init__("advanced")
 
+    def produceAlloy(self, alloy: Alloy, resources):
+        cost = list(alloy.cost)
+        used = []
+
+        for resource in resources:
+            if resource in cost:
+                cost.remove(resource)
+                used.append(resource)
+
+            if not cost:
+                resources.append(alloy)
+
+                for resource in used:
+                    resources.remove(resource)
+
+                break
+
+        return resources
+
 
 class BasicRefinery(Refinery):
     def __init__(self):
@@ -76,6 +96,24 @@ class ManufacturingPlant(Building):
             "t3_components":5
         }
         super().__init__("Manufacturing Plant", cost, True)
+
+    def produceComponents(self, resources, tier):
+        count = 0
+        used = []
+
+        for resource in resources:
+            if resource.tier >= tier:
+                count += 1
+                used.append(resource)
+
+            if count == 3:
+                for i in used:
+                    resources.remove(resource)
+
+                resources.append(Component(tier))
+                break
+
+        return resources
 
 
 class ResourceGen(Building):
