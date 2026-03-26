@@ -50,6 +50,8 @@ def buildingTest(graph):
             my_system = i
             break
 
+    my_system.constructBuilding(AdvancedRefinery(), [graph.components[2]] * 5)
+
     for building in my_system.buildings:
         print(building.name)
 
@@ -58,10 +60,8 @@ def buildingTest(graph):
 
         elif isinstance(building, Refinery):
             resource = choice(graph.resources)
-            print(resource.ore)
 
-            refined = building.refine(resource)[0]
-            print(refined.ore)
+            refined = building.refine(resource)
 
             if isinstance(building, AdvancedRefinery):
                 alloy = choice(graph.alloys)
@@ -78,6 +78,8 @@ def buildingTest(graph):
 
             out = building.produceComponents(resources, 2)
             print(out)
+
+        print("")
 
 
 

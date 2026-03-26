@@ -14,7 +14,9 @@ class Building:
             self.cost = cost
 
         else:
-            self.cost = {}
+            self.cost = []
+
+        self.buildable = buildable
 
 
 
@@ -41,15 +43,15 @@ class Refinery(Building):
         if level == "advanced":
             # Advanced level is able to create alloys
             name = "Advanced"
-            cost = {
-                "t3_components":3
-            }
+            cost = [
+                "T3 Mechanical Components"
+            ]*3
 
         else:
             name = "Basic"
-            cost = {
-                "t2_components":3
-            }
+            cost = [
+                "T2 Mechanical Components"
+            ]*3
 
         super().__init__((name+" Refinery"),cost,True)
 
@@ -76,8 +78,8 @@ class AdvancedRefinery(Refinery):
             if not cost:
                 resources.append(alloy)
 
-                for resource in used:
-                    resources.remove(resource)
+                for i in used:
+                    resources.remove(i)
 
                 break
 
@@ -92,9 +94,9 @@ class BasicRefinery(Refinery):
 class ManufacturingPlant(Building):
     # Used to create mechanical components
     def __init__(self):
-        cost = {
-            "t3_components":5
-        }
+        cost = [
+            "t3_components"
+        ]*5
         super().__init__("Manufacturing Plant", cost, True)
 
     def produceComponents(self, resources, tier):
@@ -108,7 +110,7 @@ class ManufacturingPlant(Building):
 
             if count == 3:
                 for i in used:
-                    resources.remove(resource)
+                    resources.remove(i)
 
                 resources.append(Component(tier))
                 break
