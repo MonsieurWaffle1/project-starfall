@@ -3,8 +3,7 @@ Class to represent the market state of a system, and updates commodity prices ba
 Uses different price calculations dependent on what the system is producing.
 """
 
-import resources
-
+from graph.commodity import Resource
 
 class MarketItem:
     def __init__(self, item, name, quantity, price):
@@ -14,8 +13,9 @@ class MarketItem:
         self.price = price
 
 class Market:
-    def __init__(self):
+    def __init__(self, commodities):
         self.products = []
+        self.commodities = commodities
 
     def priceCalc(self, item, Q):
         # If no subclass is used, return to fallback equation
@@ -32,56 +32,51 @@ class Market:
         # Clean data and sets a flag to check if the resource exists
         exists = False
         action = action.lower()
-        item = item.lower()
 
         # Finds the item
         for i in self.products:
-            if i.name.lower() == item:
+            if i.name.lower() == item.name.lower():
                 exists = True
                 item = i
                 break
 
         if not exists:
-            return self.add(item, Q)
+            if action == "sell":
+                return self.add(item, Q)
+
+            else:
+                return False
 
         # Performs the relevant buy/sell action
         if action == "buy":
-            return self.buy(item, Q)
+            if item.quantity < Q:
+                return False
+
+            item.quantity -= Q
+            return True
 
         elif action == "sell":
-            return self.sell(item, Q)
+            item.quantity += Q
+            return True
 
         else:
             return False
 
-    def buy(self, item, Q):
-        # Decreases stock if a valid amount is ordered
-        if item.quantity < Q:
-            return False
-
-        item.quantity -= Q
-        return True
-
-    def sell(self, item, Q):
-        item.quantity += Q
-        return True
-
     def add(self, item, Q):
-        for i in resources.components + resources.alloys + resources.resources:
-            if i.name.lower() == item.lower():
-                item = i
 
-                component = MarketItem(item, item.name, Q, 0)
-                self.products.append(component)
+        if isinstance(item, Resource):
+            if item.ore:
+                return False
 
-                break
+        component = MarketItem(item, item.name, Q, 0)
+        self.products.append(component)
 
         return True
 
 
 class MiningMarket(Market):
-    def __init__(self, main):
-        super().__init__()
+    def __init__(self, main, commodities):
+        super().__init__(commodities)
         self.main = main
 
     def priceCalc(self, item, Q):
@@ -107,8 +102,8 @@ class MiningMarket(Market):
 
 
 class ManufacturingMarket(Market):
-    def __init__(self, tier):
-        super().__init__()
+    def __init__(self, tier, commodities):
+        super().__init__(commodities)
         self.tier = tier
 
     def priceCalc(self, item, Q):

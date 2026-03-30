@@ -1,0 +1,91 @@
+{
+  "resources": [
+    {
+      "name": "aluminium"
+    },
+    {
+      "name": "titanium"
+    },
+    {
+      "name": "iron"
+    },
+    {
+      "name": "copper"
+    },
+    {
+      "name": "gold"
+    },
+    {
+      "name": "silver"
+    },
+    {
+      "name": "platinum"
+    },
+    {
+      "name": "palladium"
+    },
+    {
+      "name": "cobalt"
+    },
+    {
+      "name": "lead"
+    }
+  ],
+
+
+  "alloys": [
+    {
+      "name": "AlCu",
+      "cost": [
+        "aluminium",
+        "copper"
+      ],
+      "tier": 2
+    },
+    {
+      "name": "AgPt",
+      "cost": [
+        "silver",
+        "platinum"
+      ],
+      "tier": 2
+    },
+    {
+      "name": "FeAu",
+      "cost": [
+        "iron",
+        "gold"
+      ],
+      "tier": 2
+    },
+    {
+      "name": "TiPb",
+      "cost": [
+        "titanium",
+        "lead"
+      ],
+      "tier": 3
+    },
+    {
+      "name": "PdCo",
+      "cost": [
+        "palladium",
+        "cobalt"
+      ],
+      "tier": 3
+    }
+  ],
+
+
+  "components": [
+    {
+      "tier": 1
+    },
+    {
+      "tier": 2
+    },
+    {
+      "tier": 3
+    }
+  ]
+}

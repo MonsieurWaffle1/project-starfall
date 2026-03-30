@@ -1,4 +1,5 @@
-system_names = [
+{
+  "system_names": [
     "Alpha Centauri",
     "Sirius",
     "Vega",
@@ -28,13 +29,14 @@ system_names = [
     "TRAPPIST-1",
     "Kepler-452",
     "Gliese 667",
-    "TOI-700",
-]
+    "TOI-700"
+  ],
 
-station_names = [
+  "station_names": [
     "Point",
     "Hub",
     "Station",
     "Concourse",
     "Terminal"
-]
+  ]
+}

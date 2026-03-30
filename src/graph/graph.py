@@ -1,14 +1,12 @@
-import sys
-
-from system import System
-from buildings import *
-from market import *
-
-import resources
+from graph.system import System
+from graph.building import *
+from graph.market import *
+from graph.commodity import *
 
 from random import randint
 from random import sample
 from random import choice
+import json
 
 
 '''
@@ -29,13 +27,27 @@ class Graph:
         self.density: int = density
         self.layers: int = layers
 
-        # Possible resources that can be generated
-        self.resources = resources.resources
+        self.resources: list = []
+        self.alloys: list = []
+        self.components: list = []
 
-        # Alloys and their ingredients
-        self.alloys = resources.alloys
+        # Resource import from JSON
+        with open('config/resources.json', 'r') as f:
+            data = json.load(f)
 
-        self.components = resources.components
+        for i in data["resources"]:
+            resource = Resource(i["name"])
+            self.resources.append(resource)
+
+        for j in data["alloys"]:
+            alloy = Alloy(j["name"], j["cost"], j["tier"])
+            self.alloys.append(alloy)
+
+        for k in data["components"]:
+            component = Component(k["tier"])
+            self.components.append(component)
+
+        self.commodities = self.resources + self.alloys + self.components
 
         # Runs setup function
         self.setup()
@@ -73,6 +85,7 @@ class Graph:
             distance = randint(2,12)
             node.adjacency.append({"target" : source.id,
                                    "distance" : distance})
+
             source.adjacency.append({"target" : node.id,
                                      "distance" : distance})
 
@@ -121,13 +134,17 @@ class Graph:
             if sys.tier == 1:
                 if all_assigned:
                     # Assigns any random resource
-                    sys.resources.append(choice(self.resources))
+                    resource = choice(self.resources)
+                    sys.resources.append(resource)
 
                 else:
                     # Assigns any resource that does not yet exist
                     resource = choice(resources)
                     sys.resources.append(resource)
                     resources.remove(resource)
+
+                # Creates a location where that resource can be gathered
+                sys.buildings.append(ResourceGen(resource))
 
                 if not resources:
                     # Changed flag if all assigned
@@ -154,7 +171,8 @@ class Graph:
                 else:
                     sys.buildings.append(BasicRefinery())
 
-            sys.station = Station()
+            sys.buildings.append(Station())
+
 
     def marketAssign(self):
         # Assigns a market to each system based on tier
@@ -163,7 +181,7 @@ class Graph:
 
         for sys in self.systems:
             if sys.tier == 1:
-                sys.market = MiningMarket(sys.resources)
+                sys.market = MiningMarket(sys.resources, self.commodities)
 
                 for i in sys.resources:
                     # Basic resources are added
@@ -172,7 +190,7 @@ class Graph:
 
 
             elif sys.tier == 2:
-                sys.market = ManufacturingMarket(2)
+                sys.market = ManufacturingMarket(2, self.commodities)
 
                 # Random alloys, resources and components are filled into the market
                 alloy_nums = sample(range(0, len(self.alloys)),2)
@@ -195,7 +213,7 @@ class Graph:
 
 
             elif sys.tier == 3:
-                sys.market = ManufacturingMarket(3)
+                sys.market = ManufacturingMarket(3, self.commodities)
 
                 for i in self.components:
                     q = randint(2, 10)

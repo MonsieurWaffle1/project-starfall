@@ -1,5 +1,5 @@
 import random
-from market import Market
+from graph.building import *
 
 class System:
     def __init__(self, sysID:int, layer:int) -> None:
@@ -12,7 +12,6 @@ class System:
         self.layer = layer
         self.resources = []
         self.buildings = []
-        self.market = Market()
 
     def assignRandom(self, tiers:tuple):
         self.tier = random.choice(tiers)
@@ -27,3 +26,26 @@ class System:
         # Changes to low sec if T1 system
         if self.tier == 1:
             self.sec = False
+
+    def constructBuilding(self, building:Building, resources):
+        if not building.buildable:
+            return resources
+
+        cost = building.cost
+        used = []
+
+        for resource in resources:
+            for i in cost:
+                if resource.name == i:
+                    cost.remove(resource.name)
+                    used.append(resource)
+
+                if not cost:
+                    self.buildings.append(building)
+
+                    for i in used:
+                        resources.remove(i)
+
+                    break
+
+        return resources
