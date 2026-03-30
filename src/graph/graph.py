@@ -1,9 +1,7 @@
-import sys
-
-from system import System
-from building import *
-from market import *
-from commodity import *
+from graph.system import System
+from graph.building import *
+from graph.market import *
+from graph.commodity import *
 
 from random import randint
 from random import sample

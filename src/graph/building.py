@@ -3,7 +3,7 @@ from random import choice
 from random import randint
 import json
 
-from commodity import *
+from graph.commodity import *
 
 class Building:
     def __init__(self, name, cost, buildable):

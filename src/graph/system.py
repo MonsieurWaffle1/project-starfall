@@ -1,5 +1,5 @@
 import random
-from building import *
+from graph.building import *
 
 class System:
     def __init__(self, sysID:int, layer:int) -> None:
