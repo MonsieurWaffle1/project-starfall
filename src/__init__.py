@@ -1,4 +1,6 @@
+from .graph import Building
 from .graph import Graph
 from .agent import Agent
 
-__all__ = ['Graph', 'Agent']
+
+__all__ = ['Graph', 'Agent', 'Building']
