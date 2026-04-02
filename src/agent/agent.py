@@ -30,7 +30,6 @@ class Agent:
 
 #region Testing subclasses
 class AgentTravelTest(Agent):
-
     def __init__(self, name, graph):
         super().__init__(name, graph)
 

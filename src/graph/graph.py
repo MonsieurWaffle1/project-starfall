@@ -36,15 +36,15 @@ class Graph:
             data = json.load(f)
 
         for i in data["resources"]:
-            resource = Resource(i["name"])
+            resource = Resource(i["name"], i["mass"])
             self.resources.append(resource)
 
         for j in data["alloys"]:
-            alloy = Alloy(j["name"], j["cost"], j["tier"])
+            alloy = Alloy(j["name"], j["cost"], j["tier"], j["mass"])
             self.alloys.append(alloy)
 
         for k in data["components"]:
-            component = Component(k["tier"])
+            component = Component(k["tier"], k["mass"])
             self.components.append(component)
 
         self.commodities = self.resources + self.alloys + self.components
