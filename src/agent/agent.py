@@ -1,12 +1,15 @@
 from random import choice
 from random import randint
 
+from ship import Ship
+
 class Agent:
     def __init__(self, name, graph):
         self.name = name
         self.graph = graph
         self.system = choice(graph.systems)
         self.adjacencies = self.system.adjacency
+        self.ship = Ship(80)
 
     def travel(self, target):
         found = False
