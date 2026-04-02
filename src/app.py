@@ -1,8 +1,10 @@
+from agent.agent import AgentTravelTest
 from src import Agent
 from world import World
 
 from graph import Graph
 from src.graph.building import *
+from agent import *
 
 def marketTest(graph):
     my_system = True
@@ -84,14 +86,31 @@ def buildingTest(graph):
 
         print("")
 
-def worldTest(graph):
-    world = World()
-    world.addAgent("Phil")
+def travelTest(world):
+    world.addSpecificAgent(AgentTravelTest("Bob the Explorer", world.graph))
 
-    cycles = int(input("How many cycles would you like?"))
-
-    for i in range(0, cycles):
+    for i in range(0, 10):
         world.simulate()
+        my_agent = world.agents[0]
+        print(my_agent.system.id)
+
+
+def worldTest():
+    world = World(3, 3)
+
+    print("[1] General test")
+    print("[2] Travel test")
+
+    test = input("What type? ")
+
+    if test == "1":
+        cycles = int(input("How many cycles would you like?"))
+
+        for i in range(0, cycles):
+            world.simulate()
+
+    elif test == "2":
+        travelTest(world)
 
 
 
@@ -99,11 +118,29 @@ def graphTest():
     # Gets inputs from user
     my_graph = Graph(density = 3, layers = 3)
 
-    buildingTest(my_graph)
+    print("What test?")
+    print("[1] Market")
+    print("[2] Building")
+    i = input()
+
+    if i == "1":
+        marketTest(my_graph)
+
+    elif i == "2":
+        buildingTest(my_graph)
 
 
 
 
 
 if __name__ == '__main__':
-    graphTest()
+    print("What test?")
+    print("[1] Graph")
+    print("[2] World")
+    i = input()
+
+    if i == "1":
+        graphTest()
+
+    elif i == "2":
+        worldTest()
