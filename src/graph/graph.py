@@ -83,10 +83,10 @@ class Graph:
 
             # Relevant adjacencies are are added
             distance = randint(2,12)
-            node.adjacency.append({"target" : source.id,
+            node.adjacency.append({"system" : source,
                                    "distance" : distance})
 
-            source.adjacency.append({"target" : node.id,
+            source.adjacency.append({"system" : node,
                                      "distance" : distance})
 
             # Adds the new node to the list and recurs
