@@ -1,10 +1,8 @@
 from agent.agent import AgentTravelTest
-from src import Agent
 from world import World
 
 from graph import Graph
 from src.graph.building import *
-from agent import *
 
 def marketTest(graph):
     my_system = True

@@ -1,3 +1,7 @@
+"""
+Attachments to determine the properties of each ship
+"""
+
 class Module:
     def __init__(self, name, cost):
         self.cost = cost
@@ -8,6 +12,7 @@ class FuelTank(Module):
     def __init__(self, capacity):
         self.capacity = capacity
 
+        # Scales relative cost based on fuel capacity
         cost = 0
         for i in range(capacity):
             cost += 0.1
@@ -23,6 +28,7 @@ class CargoHold(Module):
         self.cargo = []
         self.used = 0
 
+        # Scales relative cost based on cargo capacity
         cost = 0
         for i in range(capacity):
             cost += 0.015
