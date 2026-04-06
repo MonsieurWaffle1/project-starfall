@@ -1,7 +1,7 @@
 from random import choice
 from random import randint
 
-from ship import Ship
+from agent.ship import *
 
 class Agent:
     def __init__(self, name, graph):
@@ -10,7 +10,7 @@ class Agent:
         self.graph = graph
         self.system = choice(graph.systems)
         self.adjacencies = self.system.adjacency
-        self.ship = Ship(80)
+        self.ship = Explorer()
 
     def travel(self, target):
         # Function to allow an agent to travel between systems
@@ -40,6 +40,7 @@ class Agent:
 class AgentTravelTest(Agent):
     def __init__(self, name, graph):
         super().__init__(name, graph)
+        self.ship = Explorer()
 
     def process(self, graph):
         self.graph = graph
