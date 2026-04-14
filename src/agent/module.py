@@ -11,6 +11,7 @@ class Module:
 class FuelTank(Module):
     def __init__(self, capacity):
         self.capacity = capacity
+        self.fuel_level = capacity
 
         # Scales relative cost based on fuel capacity
         cost = 0
@@ -18,7 +19,7 @@ class FuelTank(Module):
             cost += 0.1
 
 
-        name = f"Fuel Tank {capacity}L"
+        name = f"Fuel Tank {str(capacity)}L"
         super().__init__(name, round(cost))
 
 
@@ -33,7 +34,7 @@ class CargoHold(Module):
         for i in range(capacity):
             cost += 0.015
 
-        name = f"Cargo Bay {capacity}kg"
+        name = f"Cargo Bay {str(capacity)}kg"
         super().__init__(name, round(cost))
 
     def add(self, item):
@@ -52,15 +53,16 @@ class CargoHold(Module):
 
 #region Hardpoint modules
 class Hardpoint(Module):
-    def __init__(self, name, cost, dmg):
+    def __init__(self, name, cost, dmg, mining):
         self.dmg = dmg
+        self.mining = mining
         super().__init__(name, cost)
 
 
 class MiningBeam(Hardpoint):
-    def __init__(self, capacity):
+    def __init__(self):
         name = "T1 Mining Beam"
         cost = 3
 
-        super().__init__(name, cost, 5)
+        super().__init__(name, cost, 5, True)
 #endregion

@@ -11,12 +11,6 @@ class Ship:
         self.tank = FuelTank(fuel)
         self.cargo_hold = CargoHold(cargo)
 
-        # If hardpoints do not exist, create a template
-        if not "self.hardpoints" in locals():
-            self.hardpoints = {
-                0:None,
-                1:None
-            }
 
     def cargoAdd(self, item):
         return self.cargo_hold.add(item)
@@ -25,7 +19,7 @@ class Ship:
 class Miner(Ship):
     def __init__(self):
         self.hardpoints = {
-            0:MiningBeam,
+            0:MiningBeam(),
             1:None,
             2:None
         }

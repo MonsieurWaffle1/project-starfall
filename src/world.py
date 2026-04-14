@@ -15,4 +15,5 @@ class World:
 
     def simulate(self):
         for agent in self.agents:
+            print(f"Simulating {agent.name}")
             self.graph = agent.process(self.graph)
