@@ -217,8 +217,8 @@ def agentTest():
     print("[5] Produce")
     i = input()
     if i == "1":
-        print (True)
-        return True
+        #print (True)
+        #return True
         refuelTest(world)
 
     elif i == "2":

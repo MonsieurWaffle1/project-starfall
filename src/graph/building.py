@@ -2,6 +2,7 @@ from http.client import responses
 from random import choice
 from random import randint
 import json
+from pathlib import Path
 
 from graph.commodity import *
 
@@ -26,7 +27,8 @@ class Station(Building):
         cost = {}
         self.fuel_cost = 2
 
-        with open('config/names.json', 'r') as f:
+        names_json = Path(__file__).parent.parent / 'config' / 'names.json'
+        with open(names_json, 'r') as f:
             data = json.load(f)
 
         # Generates a name for the station based on a list of available options

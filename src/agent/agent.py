@@ -3,6 +3,8 @@ from random import randint
 
 from agent.ship import *
 
+
+
 class Agent:
     def __init__(self, name, graph):
         # Initializes variables and sets random location
@@ -43,8 +45,13 @@ class Agent:
 
     def refuel(self, quantity):
         # Refuels the ship. Fails if can't afford
+        station = None
+        for building in self.system.buildings:
+            if building.type == "station":
+                station = building
+                break
 
-        cost = self.system.station.refuel(quantity)
+        cost = station.refuel(quantity)
 
         if cost < self.money:
             self.money -= cost

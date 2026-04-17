@@ -7,6 +7,7 @@ from random import randint
 from random import sample
 from random import choice
 import json
+from pathlib import Path
 
 
 '''
@@ -32,7 +33,8 @@ class Graph:
         self.components: list = []
 
         # Resource import from JSON
-        with open('config/resources.json', 'r') as f:
+        resources_json = Path(__file__).parent.parent / 'config' / 'resources.json'
+        with open(resources_json, 'r') as f:
             data = json.load(f)
 
         for i in data["resources"]:
