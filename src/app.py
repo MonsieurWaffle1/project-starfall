@@ -25,7 +25,7 @@ def marketTest(graph):
     my_system.market.update()
 
     for product in my_system.market.products:
-        print(f"{product.name}, {product.quantity}, {product.price}")
+        print(f"{product.name}, {product.quantity} available, {product.price}¤")
 
     while True:
         action = input(f"Buy or sell? ")
