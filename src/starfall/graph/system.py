@@ -1,5 +1,5 @@
 import random
-from graph.building import *
+from starfall.graph.building import *
 
 class System:
     def __init__(self, sysID:int, layer:int) -> None:

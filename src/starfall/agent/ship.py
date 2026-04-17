@@ -3,7 +3,7 @@ Attribute of agent
 Used to monitor cargo, fuel and modules
 """
 
-from agent.module import *
+from starfall.agent.module import *
 
 class Ship:
     def __init__(self, fuel, cargo):

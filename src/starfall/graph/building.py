@@ -1,10 +1,10 @@
-from http.client import responses
 from random import choice
 from random import randint
 import json
 from pathlib import Path
 
-from graph.commodity import *
+from starfall.graph.commodity import *
+
 
 class Building:
     def __init__(self, name, cost, buildable, type):

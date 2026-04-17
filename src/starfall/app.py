@@ -5,8 +5,9 @@ App to facilitate function tests
 from agent.agent import AgentTravelTest
 from world import World
 
-from graph import Graph
-from src.graph.building import *
+from starfall.graph.commodity import *
+from starfall.graph.building import *
+from starfall.graph.graph import *
 
 from random import choice
 #endregion

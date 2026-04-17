@@ -1,7 +1,7 @@
 from random import choice
 from random import randint
 
-from agent.ship import *
+from starfall.agent.ship import *
 
 
 

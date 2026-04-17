@@ -1,7 +1,7 @@
-from graph.system import System
-from graph.building import *
-from graph.market import *
-from graph.commodity import *
+from starfall.graph.system import System
+from starfall.graph.building import *
+from starfall.graph.market import *
+from starfall.graph.commodity import *
 
 from random import randint
 from random import sample
