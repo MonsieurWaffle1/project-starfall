@@ -2,12 +2,14 @@ from http.client import responses
 from random import choice
 from random import randint
 import json
+from pathlib import Path
 
 from graph.commodity import *
 
 class Building:
-    def __init__(self, name, cost, buildable):
+    def __init__(self, name, cost, buildable, type):
         self.name = name
+        self.type = type
 
         # If a building can be constructed by the user, add the appropriate cost
         if buildable:
@@ -19,23 +21,33 @@ class Building:
         self.buildable = buildable
 
 
-
 class Station(Building):
     def __init__(self):
         # Appears in every system, holds a system's market
         cost = {}
-        system_names = []
-        station_names = []
+        self.fuel_cost = 2
 
-        with open('config/names.json', 'r') as f:
+        names_json = Path(__file__).parent.parent / 'config' / 'names.json'
+        with open(names_json, 'r') as f:
             data = json.load(f)
 
         # Generates a name for the station based on a list of available options
         name = f"{choice(data["system_names"])} {choice(data["station_names"])}"
-        super().__init__(name, cost, False)
+        super().__init__(name, cost, False, "station")
+
+    def refuel(self, amount):
+        return amount * self.fuel_cost
 
 
-class Refinery(Building):
+class Constructor(Building):
+    def __init__(self, name, cost, buildable):
+        super().__init__(name, cost, buildable, "craft")
+
+    def produce(self, product, resources):
+        return resources
+
+
+class Refinery(Constructor):
     def __init__(self, level):
         # Refines ores into usable bars
 
@@ -55,19 +67,26 @@ class Refinery(Building):
 
         super().__init__((name+" Refinery"),cost,True)
 
-    def refine(self, item):
-        if isinstance(item, Resource) and item.ore == True:
-            item.ore = False
+    def produce(self, product, resources):
+        for item in resources:
+            if isinstance(item, Resource) and item.ore == True:
+                resources.remove(item)
+                item.ore = False
+                resources.append(item)
+                return resources
 
-        return item
+        return resources
 
 
 class AdvancedRefinery(Refinery):
     def __init__(self):
         super().__init__("advanced")
 
-    def produceAlloy(self, alloy: Alloy, resources):
-        cost = list(alloy.cost)
+    def produce(self, product, resources):
+        if not isinstance(product, Alloy):
+            return resources
+
+        cost = list(product.cost)
         used = []
 
         for resource in resources:
@@ -76,7 +95,7 @@ class AdvancedRefinery(Refinery):
                 used.append(resource)
 
             if not cost:
-                resources.append(alloy)
+                resources.append(product)
 
                 for i in used:
                     resources.remove(i)
@@ -97,9 +116,9 @@ class ManufacturingPlant(Building):
         cost = [
             "t3_components"
         ]*5
-        super().__init__("Manufacturing Plant", cost, True)
+        super().__init__("Manufacturing Plant", cost, True, "craft")
 
-    def produceComponents(self, resources, tier):
+    def produce(self, tier, resources):
         count = 0
         used = []
 
@@ -120,8 +139,13 @@ class ManufacturingPlant(Building):
 
 class ResourceGen(Building):
     def __init__(self, resource):
-        super().__init__(f"{resource.name} Generator", [], False)
+        super().__init__(f"{resource.name} Generator", [], False, "gen")
         self.resource = resource
 
     def harvest(self):
-        return self.resource, randint(3,5)
+        resources = []
+
+        for i in range(randint(3,5)):
+            resources.append(self.resource)
+
+        return resources

@@ -7,6 +7,7 @@ from random import randint
 from random import sample
 from random import choice
 import json
+from pathlib import Path
 
 
 '''
@@ -32,19 +33,20 @@ class Graph:
         self.components: list = []
 
         # Resource import from JSON
-        with open('config/resources.json', 'r') as f:
+        resources_json = Path(__file__).parent.parent / 'config' / 'resources.json'
+        with open(resources_json, 'r') as f:
             data = json.load(f)
 
         for i in data["resources"]:
-            resource = Resource(i["name"])
+            resource = Resource(i["name"], i["mass"])
             self.resources.append(resource)
 
         for j in data["alloys"]:
-            alloy = Alloy(j["name"], j["cost"], j["tier"])
+            alloy = Alloy(j["name"], j["cost"], j["tier"], j["mass"])
             self.alloys.append(alloy)
 
         for k in data["components"]:
-            component = Component(k["tier"])
+            component = Component(k["tier"], k["mass"])
             self.components.append(component)
 
         self.commodities = self.resources + self.alloys + self.components
@@ -83,10 +85,10 @@ class Graph:
 
             # Relevant adjacencies are are added
             distance = randint(2,12)
-            node.adjacency.append({"target" : source.id,
+            node.adjacency.append({"system" : source,
                                    "distance" : distance})
 
-            source.adjacency.append({"target" : node.id,
+            source.adjacency.append({"system" : node,
                                      "distance" : distance})
 
             # Adds the new node to the list and recurs

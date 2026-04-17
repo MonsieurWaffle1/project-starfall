@@ -1,34 +1,44 @@
 {
   "resources": [
     {
-      "name": "aluminium"
+      "name": "aluminium",
+      "mass": 2
     },
     {
-      "name": "titanium"
+      "name": "titanium",
+      "mass": 2
     },
     {
-      "name": "iron"
+      "name": "iron",
+      "mass": 2
     },
     {
-      "name": "copper"
+      "name": "copper",
+      "mass": 2
     },
     {
-      "name": "gold"
+      "name": "gold",
+      "mass": 2
     },
     {
-      "name": "silver"
+      "name": "silver",
+      "mass": 2
     },
     {
-      "name": "platinum"
+      "name": "platinum",
+      "mass": 2
     },
     {
-      "name": "palladium"
+      "name": "palladium",
+      "mass": 2
     },
     {
-      "name": "cobalt"
+      "name": "cobalt",
+      "mass": 2
     },
     {
-      "name": "lead"
+      "name": "lead",
+      "mass": 2
     }
   ],
 
@@ -40,7 +50,8 @@
         "aluminium",
         "copper"
       ],
-      "tier": 2
+      "tier": 2,
+      "mass": 5
     },
     {
       "name": "AgPt",
@@ -48,7 +59,8 @@
         "silver",
         "platinum"
       ],
-      "tier": 2
+      "tier": 2,
+      "mass": 5
     },
     {
       "name": "FeAu",
@@ -56,7 +68,8 @@
         "iron",
         "gold"
       ],
-      "tier": 2
+      "tier": 2,
+      "mass": 5
     },
     {
       "name": "TiPb",
@@ -64,7 +77,8 @@
         "titanium",
         "lead"
       ],
-      "tier": 3
+      "tier": 3,
+      "mass": 8
     },
     {
       "name": "PdCo",
@@ -72,20 +86,24 @@
         "palladium",
         "cobalt"
       ],
-      "tier": 3
+      "tier": 3,
+      "mass": 8
     }
   ],
 
 
   "components": [
     {
-      "tier": 1
+      "tier": 1,
+      "mass": 15
     },
     {
-      "tier": 2
+      "tier": 2,
+      "mass": 18
     },
     {
-      "tier": 3
+      "tier": 3,
+      "mass": 20
     }
   ]
 }
