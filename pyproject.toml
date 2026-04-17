@@ -14,3 +14,7 @@ readme = "README.md"
 license = "GPL-3.0-or-later"
 
 
+[project.urls]
+Homepage = "https://github.com/MonsieurWaffle1/project-starfall"
+
+
