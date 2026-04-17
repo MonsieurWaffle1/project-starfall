@@ -5,8 +5,9 @@ App to facilitate function tests
 from agent.agent import AgentTravelTest
 from world import World
 
-from graph import Graph
-from src.graph.building import *
+from starfall.graph.commodity import *
+from starfall.graph.building import *
+from starfall.graph.graph import *
 
 from random import choice
 #endregion
@@ -25,7 +26,7 @@ def marketTest(graph):
     my_system.market.update()
 
     for product in my_system.market.products:
-        print(f"{product.name}, {product.quantity}, {product.price}")
+        print(f"{product.name}, {product.quantity} available, {product.price}¤")
 
     while True:
         action = input(f"Buy or sell? ")

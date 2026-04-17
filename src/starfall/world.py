@@ -1,4 +1,4 @@
-from src import Graph, Agent
+from starfall import Graph, Agent
 
 class World:
     def __init__(self, density, layers):
